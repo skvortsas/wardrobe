@@ -1,25 +1,27 @@
 import React, {Component} from 'react';
+import {getTopClothes} from './getRandomClothes.js';
 
 class Top_clothes extends Component{
-    state ={
-        pictureURL: null,
-    }
+    state = {
+            pictureURL: null,
+        }
 
-    componentDidMount(){
-        this.getRandomClothes();
-    }
-
-    getRandomClothes = async () => {
-        let randomClothes = Math.round(Math.random()*9);
-        const response = await fetch('http://localhost:4000');
-        const data = await response.json();
-        this.setState({
-            pictureURL: data.data[randomClothes].url,
-        });
+        componentDidMount(){
+            getTopClothes.bind(this)();
     }
 
     render(){
         const {pictureURL} = this.state;
+
+        if (pictureURL == null){
+            return(
+                <div className="col-6 text-center">
+                    Вот это сверху
+                    <div className="line"></div>
+                    <h4>Загрузите фотографии одежды в гардеробную!</h4>
+                </div>
+            )
+        }
 
         return(
             <div className="col-6 text-center">
